@@ -12,10 +12,15 @@ router.get('/', async (req, res) => {
       include: [{
         model: Tag,
         through: ProductTag,
-      }]
+        as: 'products_tags'
+       },
+       {
+       model: Category
+       }]
     });
     res.status(200).json(productData);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -27,7 +32,7 @@ router.get('/:id', async (req, res) => {
   try {
     const productData = await Product.findByPk(req.params.id, {
       // JOIN with Tags, using the ProductTag through table
-      include: [{ model: Tag, through: ProductTag, as: 'products_tags' }]
+      include: [{ model: Tag, through: ProductTag, as: 'products_tags' }, {model: Category}]
     });
 
     if (!productData) {
