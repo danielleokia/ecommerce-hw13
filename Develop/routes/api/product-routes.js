@@ -115,8 +115,8 @@ router.put('/:id', (req, res) => {
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
-      // console.log(err);
-      res.status(400).json(err);
+       console.log(err);
+      res.status(403).json(err);
     });
 });
 
